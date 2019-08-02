@@ -80,21 +80,22 @@ Public Class Form1
             FoodLoc.XPos = rnd.Next(0, PictureBox1.Size.Width / 20)
             FoodLoc.YPos = rnd.Next(0, PictureBox1.Size.Height / 20)
             Dim NewBod As New SnakeBody With {
-                .Snk_Color = Snk_Body(1).Snk_Color
+                .Snk_Color = Snk_Body(1).Snk_Color,
+                .Direction = Snk_Body(Snk_Body.Count - 1).Direction
                 }
             Select Case Snk_Body(Snk_Body.Count - 1).Direction
                 Case Direction.Down
-                    NewBod.XPos = Snk_Body(Snk_Body.Count - 1).XPos - 1
-                    NewBod.YPos = Snk_Body(Snk_Body.Count - 1).YPos
-                Case Direction.Left
                     NewBod.XPos = Snk_Body(Snk_Body.Count - 1).XPos
                     NewBod.YPos = Snk_Body(Snk_Body.Count - 1).YPos - 1
+                Case Direction.Left
+                    NewBod.XPos = Snk_Body(Snk_Body.Count - 1).XPos - 1
+                    NewBod.YPos = Snk_Body(Snk_Body.Count - 1).YPos
                 Case Direction.Right
-                    NewBod.XPos = Snk_Body(Snk_Body.Count - 1).XPos
-                    NewBod.YPos = Snk_Body(Snk_Body.Count - 1).YPos + 1
-                Case Direction.UP
                     NewBod.XPos = Snk_Body(Snk_Body.Count - 1).XPos + 1
                     NewBod.YPos = Snk_Body(Snk_Body.Count - 1).YPos
+                Case Direction.UP
+                    NewBod.XPos = Snk_Body(Snk_Body.Count - 1).XPos
+                    NewBod.YPos = Snk_Body(Snk_Body.Count - 1).YPos + 1
             End Select
             Snk_Body.Add(Snk_Body.Count, NewBod)
         End If
