@@ -56,6 +56,7 @@ Partial Class Form1
         Me.ClientSize = New System.Drawing.Size(1234, 822)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.PictureBox1)
+        Me.KeyPreview = True
         Me.Name = "Form1"
         Me.Text = "Snake"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
