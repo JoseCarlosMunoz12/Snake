@@ -22,6 +22,7 @@ Public Class Form1
     Dim StartDraw As Boolean
     Dim XDir As Integer = -1
     Dim YDir As Integer = 0
+    Dim rnd As New Random
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         For ii = 0 To 2
             Dim Col As Color = Color.Green
@@ -46,10 +47,8 @@ Public Class Form1
         Dim DimOf2dPlane As Integer = 20
         Dim Temp As Graphics = e.Graphics
 
-        Dim rnd As New Random
         Dim XCount As Integer = PictureBox1.Size.Width / DimOf2dPlane
         Dim YCount As Integer = PictureBox1.Size.Height / DimOf2dPlane
-
         Dim Br As SolidBrush = New SolidBrush(FoodLoc.FoodCol)
         For Each item In Snk_Body
             Dim Temps As SnakeBody = item.Value
@@ -76,7 +75,6 @@ Public Class Form1
             MsgBox("YOU LOOSE")
         End If
         If FoodLoc.XPos = Snk_Body(0).XPos And FoodLoc.YPos = Snk_Body(0).YPos Then
-            Dim rnd As New Random
             FoodLoc.XPos = rnd.Next(0, PictureBox1.Size.Width / 20)
             FoodLoc.YPos = rnd.Next(0, PictureBox1.Size.Height / 20)
             Dim NewBod As New SnakeBody With {
