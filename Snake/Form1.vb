@@ -1,10 +1,10 @@
 ﻿
 Public Class Form1
     Enum Direction
-        UP = 1
-        Down = -1
-        Left = 2
-        Right = -2
+        UP = 0
+        Down
+        Left
+        Right
     End Enum
     Structure FoodInfo
         Dim XPos As Integer
@@ -24,22 +24,7 @@ Public Class Form1
     Dim YDir As Integer = 0
     Dim rnd As New Random
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        For ii = 0 To 2
-            Dim Col As Color = Color.Green
-            If ii = 0 Then
-                Col = Color.Red
-            End If
-            Dim TempSnakeBod As New SnakeBody With {
-                .XPos = 10 + ii,
-                .YPos = 10,
-                .Direction = Direction.Left,
-                .Snk_Color = Col}
-            Snk_Body.Add(ii, TempSnakeBod)
-        Next
-        FoodLoc = New FoodInfo With {
-            .FoodCol = Color.Red,
-            .XPos = 1,
-            .YPos = 1}
+        ResetGame()
 
         StartDraw = True
     End Sub
@@ -57,6 +42,7 @@ Public Class Form1
         Temp.FillRectangle(Br, FoodLoc.XPos * DimOf2dPlane, FoodLoc.YPos * DimOf2dPlane, DimOf2dPlane, DimOf2dPlane)
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        ResetGame()
         Timer1.Enabled = Not Timer1.Enabled
     End Sub
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
@@ -147,5 +133,26 @@ Public Class Form1
             Snk_Body(IndexKy) = Temps
         End If
 
+    End Sub
+    Private Sub ResetGame()
+        If StartDraw Then
+            Snk_Body.Clear()
+        End If
+        For ii = 0 To 2
+            Dim Col As Color = Color.Green
+            If ii = 0 Then
+                Col = Color.Red
+            End If
+            Dim TempSnakeBod As New SnakeBody With {
+                .XPos = 10 + ii,
+                .YPos = 10,
+                .Direction = Direction.Left,
+                .Snk_Color = Col}
+            Snk_Body.Add(ii, TempSnakeBod)
+            FoodLoc = New FoodInfo With {
+                .FoodCol = Color.Red,
+                .XPos = rnd.Next(0, PictureBox1.Size.Width / 20),
+                .YPos = rnd.Next(0, PictureBox1.Size.Height / 20)}
+        Next
     End Sub
 End Class
