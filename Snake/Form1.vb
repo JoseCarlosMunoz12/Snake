@@ -79,23 +79,57 @@ Public Class Form1
             Dim rnd As New Random
             FoodLoc.XPos = rnd.Next(0, PictureBox1.Size.Width / 20)
             FoodLoc.YPos = rnd.Next(0, PictureBox1.Size.Height / 20)
+            Dim NewBod As New SnakeBody With {
+                .Snk_Color = Snk_Body(1).Snk_Color
+                }
+            Select Case Snk_Body(Snk_Body.Count - 1).Direction
+                Case Direction.Down
+                    NewBod.XPos = Snk_Body(Snk_Body.Count - 1).XPos - 1
+                    NewBod.YPos = Snk_Body(Snk_Body.Count - 1).YPos
+                Case Direction.Left
+                    NewBod.XPos = Snk_Body(Snk_Body.Count - 1).XPos
+                    NewBod.YPos = Snk_Body(Snk_Body.Count - 1).YPos - 1
+                Case Direction.Right
+                    NewBod.XPos = Snk_Body(Snk_Body.Count - 1).XPos
+                    NewBod.YPos = Snk_Body(Snk_Body.Count - 1).YPos + 1
+                Case Direction.UP
+                    NewBod.XPos = Snk_Body(Snk_Body.Count - 1).XPos + 1
+                    NewBod.YPos = Snk_Body(Snk_Body.Count - 1).YPos
+            End Select
+            Snk_Body.Add(Snk_Body.Count, NewBod)
         End If
         PictureBox1.Refresh()
     End Sub
     Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.W Then
+            Dim Temp As New SnakeBody
+            Temp = Snk_Body(0)
+            Temp.Direction = Direction.UP
+            Snk_Body(0) = Temp
             XDir = 0
             YDir = -1
         End If
         If e.KeyCode = Keys.S Then
+            Dim Temp As New SnakeBody
+            Temp = Snk_Body(0)
+            Temp.Direction = Direction.Down
+            Snk_Body(0) = Temp
             XDir = 0
             YDir = 1
         End If
         If e.KeyCode = Keys.A Then
+            Dim Temp As New SnakeBody
+            Temp = Snk_Body(0)
+            Temp.Direction = Direction.Left
+            Snk_Body(0) = Temp
             XDir = -1
             YDir = 0
         End If
         If e.KeyCode = Keys.D Then
+            Dim Temp As New SnakeBody
+            Temp = Snk_Body(0)
+            Temp.Direction = Direction.Right
+            Snk_Body(0) = Temp
             XDir = 1
             YDir = 0
         End If
@@ -103,10 +137,10 @@ Public Class Form1
     Private Sub ChangeCal(IndexKy As Integer)
         If IndexKy = 0 Then
             Dim Temp As New SnakeBody
-            Temp = Snk_Body(IndexKy)
+            Temp = Snk_Body(0)
             Temp.XPos += XDir
             Temp.YPos += YDir
-            Snk_Body(IndexKy) = Temp
+            Snk_Body(0) = Temp
         Else
             Dim Temps As New SnakeBody
             Temps = Snk_Body(IndexKy - 1)
