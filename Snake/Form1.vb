@@ -138,6 +138,8 @@ Public Class Form1
         If StartDraw Then
             Snk_Body.Clear()
         End If
+        YDir = 0
+        XDir = -1
         For ii = 0 To 2
             Dim Col As Color = Color.Green
             If ii = 0 Then
