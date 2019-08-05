@@ -64,7 +64,7 @@ Public Class Form1
             FoodLoc.XPos = rnd.Next(0, PictureBox1.Size.Width / 20)
             FoodLoc.YPos = rnd.Next(0, PictureBox1.Size.Height / 20)
             Dim NewBod As New SnakeBody With {
-                .Snk_Color = Snk_Body(1).Snk_Color,
+                .Snk_Color = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255)),
                 .Direction = Snk_Body(Snk_Body.Count - 1).Direction
                 }
             Select Case Snk_Body(Snk_Body.Count - 1).Direction
@@ -129,7 +129,7 @@ Public Class Form1
         Else
             Dim Temps As New SnakeBody
             Temps = Snk_Body(IndexKy - 1)
-            Temps.Snk_Color = Color.Green
+            Temps.Snk_Color = Snk_Body(IndexKy).Snk_Color
             Snk_Body(IndexKy) = Temps
         End If
 
