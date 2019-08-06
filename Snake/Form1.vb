@@ -7,7 +7,9 @@ Public Class Form1
         Right
     End Enum
     Structure Bridge
-
+        Dim XPos As Integer
+        Dim YPos As Integer
+        Dim ZPos As Integer
     End Structure
     Structure TeleportLoc
         Dim XPos As Integer
