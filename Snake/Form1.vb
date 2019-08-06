@@ -6,6 +6,9 @@ Public Class Form1
         Left
         Right
     End Enum
+    Structure Bridge
+
+    End Structure
     Structure TeleportLoc
         Dim XPos As Integer
         Dim YPos As Integer
@@ -21,6 +24,7 @@ Public Class Form1
     Structure SnakeBody
         Dim XPos As Integer
         Dim YPos As Integer
+        Dim ZPos As Integer
         Dim Snk_Color As Color
         Dim Direction As Direction
     End Structure
@@ -37,10 +41,8 @@ Public Class Form1
         StartDraw = True
     End Sub
     Private Sub PictureBox1_Paint(sender As Object, e As PaintEventArgs) Handles PictureBox1.Paint
-
         Dim DimOf2dPlane As Integer = 20
         Dim Temp As Graphics = e.Graphics
-
         Dim XCount As Integer = PictureBox1.Size.Width / DimOf2dPlane
         Dim YCount As Integer = PictureBox1.Size.Height / DimOf2dPlane
         Dim Br As SolidBrush = New SolidBrush(FoodLoc.FoodCol)
