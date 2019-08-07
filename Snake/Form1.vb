@@ -216,5 +216,5 @@ Public Class Form1
             .YPos = rnd.Next(0, PictureBox1.Size.Height / 20),
             .TeleportId = 2}
     End Sub
-    
+
 End Class
