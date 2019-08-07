@@ -32,7 +32,7 @@ Public Class Form1
     End Structure
     Dim Snk_Body As Dictionary(Of Integer, SnakeBody) = New Dictionary(Of Integer, SnakeBody)
     Dim FoodLoc As FoodInfo
-    Dim Teleport(1) As TeleportLoc
+    Dim Teleport(3) As TeleportLoc
     Dim StartDraw As Boolean
     Dim XDir As Integer = -1
     Dim YDir As Integer = 0
@@ -57,6 +57,8 @@ Public Class Form1
         Temp.FillRectangle(Br, FoodLoc.XPos * DimOf2dPlane, FoodLoc.YPos * DimOf2dPlane, DimOf2dPlane, DimOf2dPlane)
         Temp.FillRectangle(TL, Teleport(0).XPos * DimOf2dPlane, Teleport(0).YPos * DimOf2dPlane, DimOf2dPlane, DimOf2dPlane)
         Temp.FillRectangle(TS, Teleport(1).XPos * DimOf2dPlane, Teleport(1).YPos * DimOf2dPlane, DimOf2dPlane, DimOf2dPlane)
+        Temp.FillRectangle(TL, Teleport(2).XPos * DimOf2dPlane, Teleport(2).YPos * DimOf2dPlane, DimOf2dPlane, DimOf2dPlane)
+        Temp.FillRectangle(TS, Teleport(3).XPos * DimOf2dPlane, Teleport(3).YPos * DimOf2dPlane, DimOf2dPlane, DimOf2dPlane)
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         ResetGame()
@@ -203,5 +205,15 @@ Public Class Form1
             .XPos = rnd.Next(0, PictureBox1.Size.Width / 20),
             .YPos = rnd.Next(0, PictureBox1.Size.Height / 20),
             .TeleportId = 0}
+        Teleport(2) = New TeleportLoc With {
+            .TeleCol = Color.Blue,
+            .XPos = rnd.Next(0, PictureBox1.Size.Width / 20),
+            .YPos = rnd.Next(0, PictureBox1.Size.Height / 20),
+            .TeleportId = 3}
+        Teleport(3) = New TeleportLoc With {
+            .TeleCol = Color.Green,
+            .XPos = rnd.Next(0, PictureBox1.Size.Width / 20),
+            .YPos = rnd.Next(0, PictureBox1.Size.Height / 20),
+            .TeleportId = 2}
     End Sub
 End Class
