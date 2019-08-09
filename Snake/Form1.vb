@@ -29,6 +29,7 @@ Public Class Form1
         Dim ZPos As Integer
         Dim Snk_Color As Color
         Dim Direction As Direction
+        Dim IgnoreKey As Keys
     End Structure
     Dim Snk_Body As Dictionary(Of Integer, SnakeBody) = New Dictionary(Of Integer, SnakeBody)
     Dim FoodLoc As FoodInfo
@@ -75,6 +76,7 @@ Public Class Form1
             If Temp.XPos = Snk_Body(ii).XPos And Temp.YPos = Snk_Body(ii).YPos Then
                 Timer1.Enabled = False
                 MsgBox("YOU LOOSE")
+                Exit Sub
             End If
         Next
         ''check collision with walls
@@ -117,10 +119,14 @@ Public Class Form1
         PictureBox1.Refresh()
     End Sub
     Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If e.KeyCode = Snk_Body(0).IgnoreKey Then
+            Exit Sub
+        End If
         If e.KeyCode = Keys.W Then
             Dim Temp As New SnakeBody
             Temp = Snk_Body(0)
             Temp.Direction = Direction.UP
+            Temp.IgnoreKey = Keys.S
             Snk_Body(0) = Temp
             XDir = 0
             YDir = -1
@@ -129,6 +135,7 @@ Public Class Form1
             Dim Temp As New SnakeBody
             Temp = Snk_Body(0)
             Temp.Direction = Direction.Down
+            Temp.IgnoreKey = Keys.W
             Snk_Body(0) = Temp
             XDir = 0
             YDir = 1
@@ -137,6 +144,7 @@ Public Class Form1
             Dim Temp As New SnakeBody
             Temp = Snk_Body(0)
             Temp.Direction = Direction.Left
+            Temp.IgnoreKey = Keys.D
             Snk_Body(0) = Temp
             XDir = -1
             YDir = 0
@@ -145,6 +153,7 @@ Public Class Form1
             Dim Temp As New SnakeBody
             Temp = Snk_Body(0)
             Temp.Direction = Direction.Right
+            Temp.IgnoreKey = Keys.A
             Snk_Body(0) = Temp
             XDir = 1
             YDir = 0
@@ -163,14 +172,14 @@ Public Class Form1
             Temps.Snk_Color = Snk_Body(IndexKy).Snk_Color
             Snk_Body(IndexKy) = Temps
         End If
-
     End Sub
     Private Sub ChangeHeadPos(ByRef SnakeHead As SnakeBody, TeleLoc As TeleportLoc)
         Dim Temp As New SnakeBody With {
             .XPos = Teleport(TeleLoc.TeleportId).XPos,
             .YPos = Teleport(TeleLoc.TeleportId).YPos,
             .Direction = SnakeHead.Direction,
-            .Snk_Color = SnakeHead.Snk_Color}
+            .Snk_Color = SnakeHead.Snk_Color,
+            .IgnoreKey = SnakeHead.IgnoreKey}
         SnakeHead = Temp
     End Sub
     Private Sub ResetGame()
@@ -188,13 +197,10 @@ Public Class Form1
                 .XPos = 10 + ii,
                 .YPos = 10,
                 .Direction = Direction.Left,
-                .Snk_Color = Col}
+                .Snk_Color = Col,
+                .IgnoreKey = Keys.D}
             Snk_Body.Add(ii, TempSnakeBod)
         Next
-        FoodLoc = New FoodInfo With {
-                .FoodCol = Color.Red,
-                .XPos = rnd.Next(0, PictureBox1.Size.Width / 20),
-                .YPos = rnd.Next(0, PictureBox1.Size.Height / 20)}
         Teleport(0) = New TeleportLoc With {
             .TeleCol = Color.Blue,
             .XPos = rnd.Next(0, PictureBox1.Size.Width / 20),
@@ -206,15 +212,19 @@ Public Class Form1
             .YPos = rnd.Next(0, PictureBox1.Size.Height / 20),
             .TeleportId = 0}
         Teleport(2) = New TeleportLoc With {
-            .TeleCol = Color.Blue,
-            .XPos = rnd.Next(0, PictureBox1.Size.Width / 20),
-            .YPos = rnd.Next(0, PictureBox1.Size.Height / 20),
-            .TeleportId = 3}
+                .TeleCol = Color.Blue,
+                .XPos = rnd.Next(0, PictureBox1.Size.Width / 20),
+                .YPos = rnd.Next(0, PictureBox1.Size.Height / 20),
+                .TeleportId = 3}
         Teleport(3) = New TeleportLoc With {
             .TeleCol = Color.Green,
             .XPos = rnd.Next(0, PictureBox1.Size.Width / 20),
             .YPos = rnd.Next(0, PictureBox1.Size.Height / 20),
             .TeleportId = 2}
-    End Sub
+        FoodLoc = New FoodInfo With {
+                .FoodCol = Color.Red,
+                .XPos = rnd.Next(0, PictureBox1.Size.Width / 20),
+                .YPos = rnd.Next(0, PictureBox1.Size.Height / 20)}
 
+    End Sub
 End Class
