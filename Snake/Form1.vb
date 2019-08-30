@@ -80,9 +80,10 @@ Public Class Form1
             End If
         Next
         ''check collision with walls
-        If Temp.XPos < 0 Or Temp.XPos > PictureBox1.Size.Width / 20 Or Temp.YPos < 0 Or Temp.YPos > PictureBox1.Size.Height / 20 Then
+        If Temp.XPos < 0 Or Temp.XPos + 1 > PictureBox1.Size.Width / 20 Or Temp.YPos < 0 Or Temp.YPos + 1 > PictureBox1.Size.Height / 20 Then
             Timer1.Enabled = False
             MsgBox("YOU LOOSE")
+            Exit Sub
         End If
         ''checks collision with food
         If FoodLoc.XPos = Snk_Body(0).XPos And FoodLoc.YPos = Snk_Body(0).YPos Then
@@ -122,11 +123,11 @@ Public Class Form1
         If e.KeyCode = Snk_Body(0).IgnoreKey Then
             Exit Sub
         End If
-        If e.KeyCode = Keys.W Then
+        If e.KeyCode = Keys.W Or e.KeyCode = Keys.Up Then
             Dim Temp As New SnakeBody
             Temp = Snk_Body(0)
             Temp.Direction = Direction.UP
-            Temp.IgnoreKey = Keys.S
+            Temp.IgnoreKey = Keys.W
             Snk_Body(0) = Temp
             XDir = 0
             YDir = -1
