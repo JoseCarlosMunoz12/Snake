@@ -123,7 +123,7 @@ Public Class Form1
         If e.KeyCode = Snk_Body(0).IgnoreKey Then
             Exit Sub
         End If
-        If e.KeyCode = Keys.W Or e.KeyCode = Keys.Up Then
+        If e.KeyCode = Keys.W Then
             Dim Temp As New SnakeBody
             Temp = Snk_Body(0)
             Temp.Direction = Direction.UP
@@ -160,6 +160,28 @@ Public Class Form1
             YDir = 0
         End If
     End Sub
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, ByVal keyData As Keys) As Boolean
+        If keyData = Keys.Up Then
+            SendKeys.Send("W")
+            Return True
+        End If
+        'detect down arrow key
+        If keyData = Keys.Down Then
+            SendKeys.Send("S")
+            Return True
+        End If
+        'detect left arrow key
+        If keyData = Keys.Left Then
+            SendKeys.Send("A")
+            Return True
+        End If
+        'detect right arrow key
+        If keyData = Keys.Right Then
+            SendKeys.Send("D")
+            Return True
+        End If
+        Return MyBase.ProcessCmdKey(msg, keyData)
+    End Function
     Private Sub ChangeCal(IndexKy As Integer)
         If IndexKy = 0 Then
             Dim Temp As New SnakeBody
